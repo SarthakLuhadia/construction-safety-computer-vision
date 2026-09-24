@@ -1,10 +1,10 @@
 # Construction Safety Computer Vision
 
-Real-time computer vision for construction-site safety monitoring using PPE detection, pose estimation, ergonomic risk screening, and edge inference.
+Research code for a real-time construction-site safety monitoring system combining PPE detection, worker tracking, pose-based ergonomic analysis, incident logging, reporting, and automated alert routing.
 
 ## Research Context
 
-This repository is a personal portfolio implementation inspired by the author's work on construction safety computer vision and is related to the published paper:
+This repository contains the application implementation used in the co-authored construction-safety research project:
 
 **A Unified Edge-Based Framework for Construction Safety: Expert-Calibrated Spatial Fusion, REBA-Driven Ergonomics, and Automated Incident Response**
 
@@ -12,71 +12,126 @@ Published in *International Journal of Computational Intelligence Systems* (Spri
 
 DOI: https://doi.org/10.1007/s44196-026-01506-6
 
-> **Note:** This repository is an independently written implementation for demonstration and portfolio purposes. It is not the official implementation of the published paper and does not reproduce collaborator code.
+The core application code in `app.py` is reproduced from the public research implementation by **Daksh Singla**:
 
-## Pipeline
+https://github.com/dakshSingla1904/Tri-State-Construction-Safety-CV
 
-Video / Camera → PPE / Object Detection → Worker Detection & Association → Pose Estimation → Joint-Angle / Ergonomic Features → Risk Screening & Visualization → Annotated Video + Metrics
+This repository is maintained as Sarthak Vishal Luhadia's research/project repository. The original implementation and its contributors should be credited when the code is reused.
 
-## Features
+## What the Application Implements
 
-- YOLO-based PPE/object detection
-- Human pose estimation
-- Worker-level detection and visualization
-- Joint-angle calculation from pose landmarks
-- Transparent REBA-inspired ergonomic screening
-- Video and webcam inference
-- FPS and latency benchmarking
-- Configurable inference settings
-- Edge-oriented deployment workflow
+- YOLO-based construction PPE/object detection
+- Multi-model inference modes
+- Weighted Boxes Fusion for combining detections
+- Worker bounding-box smoothing and tracking
+- PPE-to-worker association
+- Pose-based ergonomic analysis
+- Fall detection
+- Temporal violation tracking
+- Safety/compliance scoring
+- Incident snapshots and CSV audit logging
+- Flask-based monitoring interface
+- Video, image, and webcam processing
+- Background video processing
+- Normal and slow-motion exports
+- Automated PDF safety reports
+- Optional SMTP-based alert routing
+
+## Repository Structure
+
+```text
+construction-safety-computer-vision/
+├── app.py
+├── templates/
+│   └── index.html
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── pose_analysis.py        # standalone pose-analysis experiment
+```
 
 ## Installation
 
+Create a Python environment and install the dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-Place compatible model weights in models/. Model weights and datasets are intentionally excluded from this repository.
+The application expects the trained model weights used by the research implementation. These weights are **not included** in this repository.
 
-## Run Inference
+The original application expects model files under:
 
-python scripts/run_inference.py --source path/to/video.mp4 --ppe-model models/ppe.pt --pose-model models/yolo11n-pose.pt
+```text
+weights/
+├── m1_medium.pt
+├── m2_medium.pt
+└── m_small.pt
+```
 
-For webcam input:
+and the YOLO pose model:
 
-python scripts/run_inference.py --source 0 --ppe-model models/ppe.pt --pose-model models/yolo11n-pose.pt
+```text
+yolo11n-pose.pt
+```
 
-## Benchmark
+Only use model weights and datasets that you are authorized to use or redistribute.
 
-python scripts/benchmark.py --source path/to/video.mp4 --pose-model models/yolo11n-pose.pt
+## Running the Application
 
-Benchmark results depend on model weights, input resolution, hardware, and runtime configuration.
+From the repository root:
 
-## Published Research Results
+```bash
+python app.py
+```
 
-The associated publication reports **0.910 mAP@50** and approximately **14.2 FPS** on constrained edge hardware with 4 GB VRAM under the experimental configuration described in the paper. These figures are publication results and should not be interpreted as benchmarks reproduced by this repository unless independently verified.
+The Flask application runs on port 5000 by default.
 
-## Limitations
+Open the local application in a browser after the server starts.
 
-- PPE detection quality depends on the selected dataset and trained weights.
-- Pose estimation can degrade under occlusion, poor lighting, and unusual camera angles.
-- The ergonomic component is a transparent screening implementation and is **not a complete official REBA assessment**.
-- Real deployment requires site-specific validation, camera calibration, threshold tuning, and safety review.
+## Pose Analysis
 
-## Roadmap
+A separate pose-analysis script is included as an experimental/standalone implementation. It uses YOLO11 pose tracking and calculates posture angles from keypoints.
 
-- Multi-camera worker tracking
-- Configurable PPE class mappings
-- Improved temporal risk aggregation
-- Dashboard for incident analytics
-- Edge deployment profiling
-- Reproducible evaluation scripts
+The uploaded pose implementation calculates:
+
+- trunk/back angle
+- neck angle
+- worker tracking IDs
+- SAFE/BAD posture classification
+- reasons for flagged posture
+
+For example, the source calculates a back angle from the shoulder, hip, and knee midpoints and flags excessive bending when the angle falls below its configured threshold. fileciteturn44file0L69-L88
+
+The same script also uses YOLO tracking with persistent IDs and the COCO pose keypoints used for shoulders, hips, and knees. fileciteturn44file0L37-L50
+
+## Research Results
+
+The associated publication reports **0.910 mAP@50** and approximately **14.2 FPS** on constrained edge hardware with 4 GB VRAM under the experimental setup described in the paper.
+
+These are **published research results** and should not be presented as independently reproduced benchmarks unless the experiment is reproduced.
+
+## Configuration and Security
+
+The application contains optional SMTP/RPA alert functionality. Do **not** commit real Gmail passwords, app passwords, recipient credentials, or other secrets to GitHub.
+
+Use environment variables or another secret-management mechanism before deploying the alert functionality outside a local research environment.
+
+Generated uploads, exports, reports, incident images, model weights, and other runtime artifacts should remain outside version control.
 
 ## Citation
 
-If you reference the research behind this project, please cite:
+If you use the research or application, cite the published work:
 
 > Luhadia, S. V., et al. “A Unified Edge-Based Framework for Construction Safety: Expert-Calibrated Spatial Fusion, REBA-Driven Ergonomics, and Automated Incident Response.” *International Journal of Computational Intelligence Systems*, 2026. https://doi.org/10.1007/s44196-026-01506-6
 
-## Author
+## Attribution
 
-**Sarthak Vishal Luhadia**  
+Core application implementation:
+**Daksh Singla et al.**  
+Public implementation: https://github.com/dakshSingla1904/Tri-State-Construction-Safety-CV
+
+Repository maintainer:
+**Sarthak Vishal Luhadia**
+
 Computer Vision • AI/ML • AR/VR
