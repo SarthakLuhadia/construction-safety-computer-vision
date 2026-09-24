@@ -121,13 +121,6 @@ If you use the research or application, cite the published work:
 
 > Luhadia, S. V., et al. “A Unified Edge-Based Framework for Construction Safety: Expert-Calibrated Spatial Fusion, REBA-Driven Ergonomics, and Automated Incident Response.” *International Journal of Computational Intelligence Systems*, 2026. https://doi.org/10.1007/s44196-026-01506-6
 
-## Attribution
 
-Core application implementation:
-**Daksh Singla et al.**  
-Public implementation: https://github.com/dakshSingla1904/Tri-State-Construction-Safety-CV
-
-Repository maintainer:
-**Sarthak Vishal Luhadia**
 
 Computer Vision • AI/ML • AR/VR
