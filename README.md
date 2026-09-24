@@ -12,11 +12,7 @@ Published in *International Journal of Computational Intelligence Systems* (Spri
 
 DOI: https://doi.org/10.1007/s44196-026-01506-6
 
-The core application code in `app.py` is reproduced from the public research implementation by **Daksh Singla**:
 
-https://github.com/dakshSingla1904/Tri-State-Construction-Safety-CV
-
-This repository is maintained as Sarthak Vishal Luhadia's research/project repository. The original implementation and its contributors should be credited when the code is reused.
 
 ## What the Application Implements
 
