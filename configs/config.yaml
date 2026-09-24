@@ -1,6 +1,0 @@
-ppe_model: models/ppe.pt
-pose_model: models/yolo11n-pose.pt
-conf_threshold: 0.35
-pose_conf_threshold: 0.25
-input_size: 640
-output_dir: outputs
